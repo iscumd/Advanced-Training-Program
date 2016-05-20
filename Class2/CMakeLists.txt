@@ -14,7 +14,7 @@ find_package(Threads REQUIRED)
 
 # Include headers
 include_directories(${WIRINGPI_INCLUDE_DIRS}) 
-include_directories("~/Desktop/Advanced-Training-Program/Class2)
+include_directories("~/Desktop/Advanced-Training-Program/Class2")
 
 
 

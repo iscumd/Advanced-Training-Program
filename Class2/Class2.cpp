@@ -1,9 +1,11 @@
-#include <opencv2\opencv.hpp>
+#include <opencv2/opencv.hpp>
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <stdlib.h>
 #include <ctime>
+#include <string>
+#include <sstream>
 
 using namespace std;
 using namespace cv;
@@ -24,6 +26,13 @@ static void onMouse(int event, int x, int y, int, void*)
 	Point pointClicked = Point(x, y);
 	int radius = 4;
 	circle(drawimage, pointClicked, radius, Scalar(0, 255, 0), -1, 8, 0);
+}
+template <typename T>
+string to_string(T val)
+{
+stringstream stream;
+stream << val;
+return stream.str();
 }
 const int H_MIN = 0;
 const int H_MAX = 255;
@@ -74,7 +83,7 @@ int main()
 	//set the callback function for any mouse event
 	setMouseCallback("Draw Image", onMouse, NULL);
 
-	string imagedirectory = "c:\\users\\ben\\pictures\\images\\";
+	string imagedirectory = "../images/";
 	string imgbasename = "fruit";
 	rgbimage = imread(imagedirectory + imgbasename + to_string(imageid) + ".jpg", CV_LOAD_IMAGE_COLOR); // load the first image
 	if (!rgbimage.data)                                                            // check for invalid input
@@ -142,9 +151,9 @@ int main()
 
 		// blur the image to get rid of the noise. This will output an intensity image
 		cv::blur(grayImage, blurImage, BLUR_SIZE);
-		cv::Mat erodeElement = getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(3, 3));
+		cv::Mat erodeElement = getStructuringElement(MORPH_ELLIPSE, cv::Size(3, 3));
 		// dilate with larger element so make sure object is nicely visible
-		cv::Mat dilateElement = getStructuringElement(cv::MorphShapes::MORPH_ELLIPSE, cv::Size(8, 8));
+		cv::Mat dilateElement = getStructuringElement(MORPH_ELLIPSE, cv::Size(8, 8));
 		cv::erode(HSVthreshold, HSVthreshold, erodeElement);
 		cv::erode(HSVthreshold, HSVthreshold, erodeElement);
 		cv::dilate(HSVthreshold, HSVthreshold, dilateElement);
@@ -214,3 +223,6 @@ void createTrackbars()
 	createTrackbar("B_MIN", trackbarwindowname1, &B_threshold_MIN, H_MAX, on_trackbar1);
 	createTrackbar("B_MAX", trackbarwindowname1, &B_threshold_MAX, H_MAX, on_trackbar1);
 }
+
+
+
