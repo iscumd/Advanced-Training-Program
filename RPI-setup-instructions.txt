@@ -1,9 +1,11 @@
 Setup and Install Raspberry Pi with Raspbian OS
 https://www.raspberrypi.org/help/noobs-setup/
-
+Install gedit
+sudo apt-get install gedit
 Install git
 sudo apt-get install git
-
+Install remote login 
+sudo apt-get install tightvncserver
 Compile OpenCV from source:
 sudo apt-get update
 sudo apt-get upgrade
@@ -37,3 +39,11 @@ libswscale-dev
 
 cd ~/<my_working _directory>
 git clone https://github.com/Itseez/opencv.git
+
+http://docs.opencv.org/3.1.0/#gsc.tab=0
+
+IP address: 169.254.57.227
+Broadcast Range: 169.254.255.255
+Mask: 255.255.0.0
+Destination: 169.254.0.0
+Gateway: 169.254.57.254
