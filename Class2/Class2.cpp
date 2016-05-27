@@ -78,27 +78,32 @@ int main()
 	cv::Mat RGBthreshold;     // binary
 	cv::Mat blurImage;       // grayscale
 	cv::Mat HSVthreshold; // binary
+	cv::Mat ANDthreshold;
 	namedWindow("Draw Image", 1);
 
 	//set the callback function for any mouse event
 	setMouseCallback("Draw Image", onMouse, NULL);
-
+	
 	string imagedirectory = "../images/";
 	string imgbasename = "fruit";
+	cout << "before image read" << endl;
 	rgbimage = imread(imagedirectory + imgbasename + to_string(imageid) + ".jpg", CV_LOAD_IMAGE_COLOR); // load the first image
 	if (!rgbimage.data)                                                            // check for invalid input
 	{
 		cout << "could not open or find the image" << std::endl;
 		return -1;
 	}
+	cout << "before color convert" << endl;
 	cvtColor(rgbimage, grayImage, COLOR_BGR2GRAY);
 	cvtColor(rgbimage, HSVimage, COLOR_BGR2HSV);
 	rgbimage.copyTo(drawimage);
+	resize(drawimage, drawimage, Size(640, 480));
 	createTrackbars();
 
 	char key = 0;
 	int testkey = 0;
 	// main loop
+	cout << "before while loop" << endl;
 	while (imageid > 0 && imageid < numofimages && key != 'q') {
 
 		// keyboard interface
@@ -117,6 +122,7 @@ int main()
 			cvtColor(rgbimage, grayImage, COLOR_BGR2GRAY);
 			cvtColor(rgbimage, HSVimage, COLOR_BGR2HSV);
 			rgbimage.copyTo(drawimage);
+			resize(drawimage, drawimage, Size(640, 480));
 			key = 0;
 			break;
 		case 'p': // load the previous image
@@ -130,10 +136,14 @@ int main()
 			cvtColor(rgbimage, grayImage, COLOR_BGR2GRAY);
 			cvtColor(rgbimage, HSVimage, COLOR_BGR2HSV);
 			rgbimage.copyTo(drawimage);
+			resize(drawimage, drawimage, Size(640, 480));
+
 			key = 0;
 			break;
 		case 'r': // refresh the draw image
+			
 			rgbimage.copyTo(drawimage);
+			resize(drawimage, drawimage, Size(640, 480));
 			key = 0;
 			break;
 		case 'h':
@@ -147,10 +157,14 @@ int main()
 		case 'd' :
 			imshow("Draw Image", drawimage); waitKey(1);
 			break;
+		case 'o' :
+		bitwise_or(HSVthreshold, RGBthreshold, ANDthreshold);
+		SHOWIMAGE(ANDthreshold);
+break;
 		}
 
 		// blur the image to get rid of the noise. This will output an intensity image
-		cv::blur(grayImage, blurImage, BLUR_SIZE);
+	/*	cv::blur(grayImage, blurImage, BLUR_SIZE);
 		cv::Mat erodeElement = getStructuringElement(MORPH_ELLIPSE, cv::Size(3, 3));
 		// dilate with larger element so make sure object is nicely visible
 		cv::Mat dilateElement = getStructuringElement(MORPH_ELLIPSE, cv::Size(8, 8));
@@ -158,7 +172,7 @@ int main()
 		cv::erode(HSVthreshold, HSVthreshold, erodeElement);
 		cv::dilate(HSVthreshold, HSVthreshold, dilateElement);
 		cv::dilate(HSVthreshold, HSVthreshold, dilateElement);
-
+*/
 		//	SHOWIMAGE(BGthreshold);
 		//bitwise_and(HSVthreshold, BGthreshold, );
 	}

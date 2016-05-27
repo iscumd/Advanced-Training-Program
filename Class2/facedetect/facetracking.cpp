@@ -24,7 +24,7 @@ int amap(int x, int in_min, int in_max, int out_min, int out_max) {
 }
 #define slaveaddress 0x40
 /** Function Headers */
-void detectAndDisplay(Mat frame);
+Mat detectAndDisplay(Mat frame);
 
 /** Global variables */
 String face_cascade_name = "haarcascade_frontalface_alt.xml";
@@ -38,8 +38,7 @@ int main(void)
 {
 	Mat frame;
 	//set camera params
-	wiringPiSetup();
-
+/*	wiringPiSetup();
 	PCA9685 *pca9685 = new PCA9685(slaveaddress);
 	int err = pca9685->openPCA9685();
 	if (err < 0){
@@ -53,8 +52,11 @@ int main(void)
 		// 27 is the ESC key
 		printf("Hit ESC key to exit\n");
 	}
+*/
 	raspicam::RaspiCam_Cv capture;
 	capture.set(CV_CAP_PROP_FORMAT, CV_8UC3);
+	capture.set(CV_CAP_PROP_FRAME_HEIGHT, 480);
+	capture.set(CV_CAP_PROP_FRAME_WIDTH,  640);
 	//Open camera
 	cout << "Opening Camera..." << endl;
 	if (!capture.open()) { cerr << "Error opening the camera" << endl; return -1; }
@@ -65,6 +67,8 @@ int main(void)
 
 	char key = 0;
 	int testkey = 0;
+	Mat drawimage;
+	namedWindow("Hello");
 	while (key != 'q')
 	{
 		testkey = waitKey(20);
@@ -80,14 +84,17 @@ int main(void)
 		}
 
 		//-- 3. Apply the classifier to the frame
-		detectAndDisplay(frame);
+		detectAndDisplay(frame).copyTo(drawimage);
+		//Mat A;
+	//	A = Mat::zeros(640,480, CV_32F);
+		imshow("Hello",  drawimage);
 
 	}
 	return 0;
 }
 
 /** @function detectAndDisplay */
-void detectAndDisplay(Mat frame)
+Mat detectAndDisplay(Mat frame)
 {
 	std::vector<Rect> faces;
 	Mat frame_gray;
@@ -117,5 +124,5 @@ void detectAndDisplay(Mat frame)
 		}
 	}
 	//-- Show what you got
-	imshow(window_name, frame);
+	return frame;
 }
