@@ -3,6 +3,12 @@ computer to connect via SSH (Secure Shell) or VNC (Virtual Network Computing), y
 
 Commands will be in quotes. Please do not type the quotes along with the command.
 
+NOTE: IF YOU USE UBUNTU WITH UNITY, THIS CAN BE SIMPLFIED. THIS TUTORIAL ASSUMES ANY LINUX OS.
+If you use the above, open the system settings and click network. The IP address of the host computer for use with NMAP is
+on the wired page and you can set the shared option under IPV4 settings in Options.
+
+OTHERWISE:
+
 Please run the command "sudo apt--get install remmina network-manager"
 
 For more information on Network Manager, see https://help.ubuntu.com/community/NetworkManager.
