@@ -1,1 +1,0 @@
-/home/pi/Desktop/Advanced-Training-Program/Class2/facedetect/CMakeFiles/facetracker.dir
