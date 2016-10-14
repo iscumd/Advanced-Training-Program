@@ -1,0 +1,35 @@
+To find the IP address of a Raspberry Pi connected directly to your Linux (You have realized just how crappy Windows is, right?)
+computer to connect via SSH (Secure Shell) or VNC (Virtual Network Computing), you need to install two programs.
+
+Commands will be in quotes. Please do not type the quotes along with the command.
+
+Please run the command "sudo apt--get install remmina network-manager"
+
+For more information on Network Manager, see https://help.ubuntu.com/community/NetworkManager.
+
+You will now open network manager by typing into terminal "nm-connection-editor" (You can press tab to accelerate this process via
+autocompletion).
+
+Click on the ethernet connection and select edit. You will see under IPV4 settings a dropdown box that has the option
+Shared to Other Computers. This won't be selected by default; you will need to set it. Remember its previous setting; 
+you will want to set it back when you are done.
+
+Once you have done so, run the command "ip addr show" and locate the address of the ethernet device, usually eth0.
+
+Now run "nmap -n -sP IPADDRESS/24" with IPADDRESS replaced by the address you found in the previous step. This will locate
+the address of the Pi so you can SSH to it, and also list the IPADDRESS you found earlier. Make sure you know which is which.
+
+
+Okay, so you have the IP address of the Raspberry Pi attached to your PC (If it wasn't connected, DO THE ABOVE AGAIN after
+connecting it again!), so now what do you do?
+
+
+You will want to SSH or VNC to the Pi.
+
+SSH: "ssh pi@PI'SADDRESS" and enter the password raspberry.
+
+VNC: Open Remmina and click New. Set it to VNC connection under Protocol. Set the Server Address to be PI'SADDRESS:1
+(note: It might be a different number, perhaps 0. This last part refers to the display being shared)
+
+Also set the username to "pi" and the password to "raspberry". Set show remote cursor and set the color to 256 bit and medium quality.
+You can adjust that to taste. Whatever runs best and shows up nicely. The wrong setting can slow down the connection greatly, though.
