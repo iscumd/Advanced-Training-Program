@@ -1,0 +1,6 @@
+RPI:
+Run Command Prompt as Administrator
+Run "netsh winsock reset"
+Restart computer as prompted.
+Go to Control Panel -> Network & Sharing Center -> Change adapter settings -> Right Click Wifi -> Properties ->
+Uncheck "Allow other network users..." -> Hit OK -> Recheck "Allow other network users..." -> Hit OK
