@@ -1,0 +1,56 @@
+OpenCV installation in Windows:
+1. Download "opencv-3.1.0.exe" from https://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.1.0/
+2. Run "opencv-3.1.0.exe" as an Administrator. 
+3. Change the extraction directory to "C:\".
+4. Click "Extract"
+5. Go to Control Panel, "View by:" Large or Small icons, and click "System".
+6. Click "Advanced system settings"
+7. Click "Evironmental Variables..."
+8. Under "System Variables" click "New..."
+Variable name: OPENCV_DIR
+Variable value: C:\opencv\build\
+9. Click "OK"
+10. ------DANGER, FOLLOW CAREFULLY------------We don't want to delete the Variable Value of "Path"
+Under "System Variables", find a Variable called "Path" and click "Edit..."
+Copy and paste the "Variable Value:" into a text editor like Notepad or Microsoft Word.
+At the end of the value add: ";C:\opencv\build\x64\vc12\bin" If you have a 64 bit version of Windows 
+or if you have a 32 bit version of Windows, ";C:\opencv\Build\x86\vc12\bin"
+Copy and paste the new Variable Value back into the "Path" Variable Value.
+Click "OK" until you exit all the menus.
+
+Visual Studio 2013 setup in Windows:
+1. Download Visual Studio 2013 at https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs
+2. Click "Download Visual Studio Community 2013".
+3. Run "wdexpress_full.exe" and install Visual Studio
+4. Run Visual Studio and go "File -> New Project..." and under Templates select "Visual C++" and then "Empty Project".
+5. Name the project and decide on a project location.
+6. Now go "Project -> Properties" 
+7. If you have a 64 bit version of Windows, click "Configuration Manager..." and under "Active solution platform" dropdown select "<New...>"
+and then under "Type or select the new platform" select "x64" then click "OK" and then Close.
+8. Expand "Configuration Properties"
+9. Select "C/C++" and under "General" add to "Additional Include Directories" the paths
+
+$(OPENCV_DIR)\include
+$(OPENCV_DIR)\include\opencv
+$(OPENCV_DIR)\include\opencv2
+
+10. Select and expand "Linker" and under "General" add to "Additional Libary Directories" the paths
+  ///////////// if you have a 64 bit version of Windows
+$(OPENCV_DIR)\x64\vc12\lib  
+  ///////////// if you have a 32 bit version of Windows
+$(OPENCV_DIR)\x86\vc12\lib
+
+11. Under "Input" add to "Additional Dependecies" the library
+
+opencv_world310.lib
+
+
+12. Click "Apply" then "OK"
+
+13. To test if the OpenCV setup, first go Project -> Add New Item... -> C++ File(.cpp) -> Add.
+ Now go to http://docs.opencv.org/3.1.0/dc/d16/cout_mat_8cpp-example.html#gsc.tab=0
+and copy the code into the newly added source file and attempt to build the project and run it.
+If sucessful, then OpenCV was installed sucessfully.
+
+
+
